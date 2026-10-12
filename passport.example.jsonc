@@ -1,0 +1,6 @@
+// Cookie["NTES_YD_PASSPORT"]
+// 有效期由服务端决定，失效后重新登录更新
+// 复制本文件为 passport.jsonc（已被 .gitignore 忽略），填入你的 Cookie
+[
+  "粘贴你的 NTES_YD_PASSPORT 值到这里"
+]

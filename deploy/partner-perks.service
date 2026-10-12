@@ -1,0 +1,25 @@
+[Unit]
+Description=NetEase partner-perks super-coupon grabber
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# 脚本自身会等到 0 点（预热 → 登录 → 保活 → 开火），运行约 6 分钟，
+# 必须关闭 systemd 默认的 90s 启动超时
+TimeoutStartSec=0
+# 改成你的实际部署目录
+WorkingDirectory=/opt/partner-perks-ne
+# 目标时刻按本地时区解析，必须锁北京时间，UTC 机器会抢歪
+Environment=TZ=Asia/Shanghai
+UMask=0077
+ExecCondition=/opt/partner-perks-ne/node_modules/.bin/tsx deploy/check-accounts.ts
+ExecStart=/opt/partner-perks-ne/node_modules/.bin/tsx main.ts run
+# 装了 Node 24+ 的话也可以用（免 tsx）：
+# ExecStart=/usr/bin/node main.ts run
+
+# 不需要 root；改成运行该服务的普通用户
+# User=yourname
+
+[Install]
+WantedBy=multi-user.target

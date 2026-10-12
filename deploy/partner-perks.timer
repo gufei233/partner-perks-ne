@@ -1,0 +1,12 @@
+[Unit]
+Description=Daily partner-perks coupon grab (starts 23:55, script waits for 00:00 internally)
+
+[Timer]
+# 每天 23:55 拉起；脚本内部 23:59 开始登录预热，00:00:00 前 100ms 开火
+OnCalendar=*-*-* 23:55:00 Asia/Shanghai
+AccuracySec=1s
+# 机器在 23:55 处于关机/断网时，恢复后立即补跑（脚本会自己等到下一个 0 点）
+Persistent=true
+
+[Install]
+WantedBy=timers.target
